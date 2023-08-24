@@ -3,6 +3,7 @@ import Home from "../pages/home"
 import Login from '../pages/login'
 const Page1 = lazy(() => import('../pages/page1'))
 const Page2 = lazy(() => import('../pages/page2'))
+const Page3 = lazy(() => import('../pages/page3'))
 
 //Navigate重定向組件
 import { Navigate } from "react-router-dom"
@@ -16,7 +17,7 @@ const withLoadingComponent = (comp: JSX.Element) => (
 
 const routes = [
 
-    //路由 開始-------------------
+    //router 開始-------------------
     {
         path: "/",
         element: <Navigate to="/page1" />
@@ -33,10 +34,14 @@ const routes = [
                 path: "/page2",
                 element: withLoadingComponent(<Page2 />)
             },
+            {
+                path: "/page3",
+                element: withLoadingComponent(<Page3 />)
+            },
 
         ]
     },
-    //路由 結束-------------------
+    //router 結束-------------------
     {
         path: "/login",
         element: <Login />
