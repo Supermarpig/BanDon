@@ -19,36 +19,14 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
+    "baseUrl": "./src",
     "paths": {
-      "@*": [
-        "./*"
-      ],
-      "@components/*": [
-        "./components/*"
-      ],
-      "@services/*": [
-        "./services/*"
-      ],
-      "@contents/*": [
-        "./contents/*"
-      ],
-      "@utils/*": [
-        "./utils/*"
-      ],
-      "@styles/*": [
-        "./styles/*"
-      ],
-      "@pages/*": [
-        "./pages/*"
-      ],
+      "@*": ["./*"],
+      "@components/*": ["./components/*"],
     }
+  
   },
   "include": [
     "src"
   ],
-  "references": [
-    {
-      "path": "./tsconfig.node.json"
-    }
-  ]
 }

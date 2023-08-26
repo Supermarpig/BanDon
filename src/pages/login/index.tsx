@@ -2,6 +2,7 @@
 import { ChangeEvent, useEffect, useState } from "react"
 import initLoginBg from './init'
 import { useNavigate } from "react-router-dom"
+import { Input } from '@components/ui/Input';
 
 const Login = (prop: any) => {
     let navigateTo = useNavigate();
@@ -54,7 +55,7 @@ const Login = (prop: any) => {
     return (
         <div className="relative">
             {/* <div>這是Login頁面 </div> */}
-            <canvas id="canvas" className="block"></canvas>
+            <canvas id="canvas" className=""></canvas>
             <div className='absolute top-[25%] left-[50%] -translate-x-2/4 -translate-y-2/4;'>
                 {/* 標題部分 */}
                 <div className='text-white mb-2.5'>
@@ -63,12 +64,22 @@ const Login = (prop: any) => {
                 </div>
                 {/* 表單部分 */}
                 <div className="flex flex-col items-center justify-center p-10">
-                    <input type="text" className="text-center rounded-lg mb-2.5" placeholder="帳號" onChange={usernameChange} />
-                    <input type="text" className="text-center rounded-lg mb-2.5" placeholder="密碼" onChange={passwordChange} />
+                    {/* <input type="text" className="text-center rounded-lg mb-2.5" placeholder="帳號" onChange={usernameChange} />
+                    <input type="text" className="text-center rounded-lg mb-2.5" placeholder="密碼" onChange={passwordChange} /> */}
+                    <Input
+                        type="text"
+                        placeholder={'帳號'}
+                        onChange={usernameChange}
+                    />
+                    <Input
+                        type="password"
+                        placeholder={'密碼'}
+                        onChange={passwordChange}
+                    />
                     <button className="bg-white rounded-3xl mt-10 w-[100px] hover:scale-105" onClick={gotoLogin}>登錄</button>
 
                 </div>
-
+                
             </div>
         </div>
     )
