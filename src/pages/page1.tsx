@@ -3,13 +3,13 @@ import React from 'react'
 import { Input } from '@components/ui/Input'
 
 export default function page() {
+
+    
     return (
         <>
             <div>page1</div>
-            <Input
-                type='text'
-                placeholder='你好'
-            />
+        
+        
         </>
     )
 }

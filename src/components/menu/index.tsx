@@ -13,17 +13,17 @@ export interface MenuChild {
 }
 const items: MenuProps[] = [
     {
-        label: '第一頁',
+        label: '名單',
         key: '/Page1',
         icon: '',
     },
     {
-        label: '第二頁',
+        label: '菜單',
         key: '/Page2',
         icon: '',
     },
     {
-        label: '第三頁',
+        label: '訂單表',
         key: 'page3',
         icon: '',
         children: [
@@ -62,7 +62,7 @@ const Menu = (props: MenuProps) => {
 
     return (
         <div>
-            <ul className='flex'>
+            <ul className='flex justify-center flex-wrap'>
                 {items.map((item) => (
                     <li
                         key={item.key}
