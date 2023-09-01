@@ -69,11 +69,13 @@ const Login = (prop: any) => {
                     <Input
                         type="text"
                         placeholder={'帳號'}
+                        textColor='white'
                         onChange={usernameChange}
                     />
                     <Input
                         type="password"
                         placeholder={'密碼'}
+                        textColor='white'
                         onChange={passwordChange}
                     />
                     <button className="bg-white rounded-3xl mt-10 w-[100px] hover:scale-105" onClick={gotoLogin}>登錄</button>
