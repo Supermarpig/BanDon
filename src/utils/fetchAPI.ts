@@ -32,11 +32,9 @@ async function fetchAPI({ url, method = 'GET', data, headers }: I_FetchParams): 
             const axiosError = error as AxiosError;
             console.error(`${url} Axios Error =>`, axiosError);
 
-            // 处理其他错误或抛出异常
             return null;
         } else {
             console.error(`${url} Exception =>`, error);
-            // 处理其他错误或抛出异常
             return null;
         }
     }

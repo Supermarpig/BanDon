@@ -4,6 +4,11 @@ import Login from '../pages/login'
 const Page1 = lazy(() => import('../pages/page1'))
 const Page2 = lazy(() => import('../pages/page2'))
 const Page3 = lazy(() => import('../pages/page3'))
+const Page301 = lazy(() => import('../pages/page301'))
+const Page302 = lazy(() => import('../pages/page302'))
+const Page303 = lazy(() => import('../pages/page303'))
+const Form = lazy(() => import('../pages/form'))
+const TestPage = lazy(() => import('../pages/test'))
 
 //Navigate重定向組件
 import { Navigate } from "react-router-dom"
@@ -37,6 +42,26 @@ const routes = [
             {
                 path: "/page3",
                 element: withLoadingComponent(<Page3 />)
+            },
+            {
+                path: "/page3/page301",
+                element: withLoadingComponent(<Page301 />)
+            },
+            {
+                path: "/page3/page302",
+                element: withLoadingComponent(<Page302 />)
+            },
+            {
+                path: "/page3/page303",
+                element: withLoadingComponent(<Page303 />)
+            },
+            {
+                path: "/test",
+                element: withLoadingComponent(<TestPage />)
+            },
+            {
+                path: "/test/form",
+                element: withLoadingComponent(<Form />)
             },
 
         ]
