@@ -13,7 +13,7 @@ export interface MenuChild {
 }
 const items: MenuProps[] = [
     {
-        label: '名單',
+        label: '測試測試',
         key: '/Page1',
         icon: '',
     },
