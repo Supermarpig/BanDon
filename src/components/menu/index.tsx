@@ -51,6 +51,10 @@ const items: MenuProps[] = [
                 label: 'form',
                 key: '/test/form',
             },
+            {
+                label: 'formZod',
+                key: '/test/formZod',
+            },
 
         ]
     },

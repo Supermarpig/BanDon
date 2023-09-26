@@ -1,5 +1,4 @@
-//表單 react-hook-form  測試
-
+//useForm 加 Zod 判斷
 import { useForm, useWatch } from 'react-hook-form'
 
 
@@ -23,7 +22,7 @@ export default function page() {
     console.log(watchForm);
     return (
         <>
-            <h1 className="text-3xl mb-5">react-hook-form 測試</h1>
+            <h1 className="text-3xl mb-5">react-hook-form  & zod 測試</h1>
             <form onSubmit={handleSubmit(onSubmit)} className='border rounded-lg border-black border-solid p-5'>
                 <div className="mb-3">
                     <label htmlFor="username" className="form-label">使用者名稱</label>
@@ -134,7 +133,6 @@ export default function page() {
                 </div>
                 <button type="submit" className="btn btn-primary border-black border border-solid rounded-3xl px-5">送出表單</button>
             </form>
-
         </>
     )
 }

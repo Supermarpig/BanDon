@@ -4,12 +4,13 @@ import Menu from '../components/menu'
 
 function Home() {
     return (
-        <div className='flex flex-col h-full p-2.5'>
-            <div className='text-center'>
-                header
+        <div className='flex flex-col h-full '>
+            <div className='text-center fixed bg-white w-full'>
                 <Menu />
             </div>
-            <Outlet />
+            <div className='mt-12 p-2.5 flex items-center flex-col'>
+                <Outlet />
+            </div>
             <div className='mt-auto text-center p-2.5'>footer</div>
         </div>
     )

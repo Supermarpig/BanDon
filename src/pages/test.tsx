@@ -26,9 +26,9 @@ export default function page() {
                 // className='border-2 border-solid border-black'
                 borderColor='border-2 border-solid border-black'
             />
-            <div className='flex flex-col item-center flex-nowrap'>
+            <div className='flex item-center flex-wrap flex-row justify-center'>
                 {rainData && rainData.map((item: any, index: any) => (
-                    <div key={index} className='border-2 border-solid border-[#F5f5f5] p-5 rounded mb-5'>
+                    <div key={index} className='border-2 border-solid border-[#F5f5f5] p-5 rounded mb-5 mr-2.5'>
                         <h1>{item.station.StationName}</h1>
                         {item.stationObsStatistics.Precipitation.monthly.map((monthlyData: any, i: number) => (
                             <p key={i}>{monthlyData.YearMonth}月平均降雨量:{monthlyData.Total} mm</p>

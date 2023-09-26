@@ -8,6 +8,7 @@ const Page301 = lazy(() => import('../pages/page301'))
 const Page302 = lazy(() => import('../pages/page302'))
 const Page303 = lazy(() => import('../pages/page303'))
 const Form = lazy(() => import('../pages/form'))
+const FormZod = lazy(() => import('../pages/formZod'))
 const TestPage = lazy(() => import('../pages/test'))
 
 //Navigate重定向組件
@@ -62,6 +63,10 @@ const routes = [
             {
                 path: "/test/form",
                 element: withLoadingComponent(<Form />)
+            },
+            {
+                path: "/test/formZod",
+                element: withLoadingComponent(<FormZod />)
             },
 
         ]
