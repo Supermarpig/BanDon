@@ -44,7 +44,7 @@ export default function page() {
                     />
 
                     {errors.username && (
-                        <div className="text-red-500">* {errors.username.message}</div>
+                        <div className="text-red-500">* {`${errors.username.message}`}</div>
                     )}
                     {/* 在這邊加上&&可以確保errors.username的值為null 或 undefined
           時避免產生錯誤 */}
@@ -89,7 +89,7 @@ export default function page() {
                         })}
                         className={`form-control ml-2.5 rounded-lg border border-black border-solid px-2.5 ${errors.password && "border-red-500"}`}
                     />
-                    {errors.password && <div className="text-red-500">* {errors.password.message}</div>}
+                    {errors.password && <div className="text-red-500">* {`${errors.password.message}`}</div>}
                 </div>
                 <div className="mb-3">
                     <div className="form-check">
