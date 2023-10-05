@@ -10,6 +10,7 @@ const Page303 = lazy(() => import('../pages/page303'))
 const Form = lazy(() => import('../pages/form'))
 const FormZod = lazy(() => import('../pages/formZod'))
 const TestPage = lazy(() => import('../pages/test'))
+const SentToLineNotify = lazy(() => import('../pages/sentToLineNotify'))
 
 //Navigate重定向組件
 import { Navigate } from "react-router-dom"
@@ -67,6 +68,10 @@ const routes = [
             {
                 path: "/test/formZod",
                 element: withLoadingComponent(<FormZod />)
+            },
+            {
+                path: "/test/sentToLineNotify",
+                element: withLoadingComponent(<SentToLineNotify />)
             },
 
         ]
