@@ -9,3 +9,11 @@ body {
     flex-direction: column;
     /* @apply text-dark_gray; */
 }
+
+input{
+    border:1px solid #000;
+    border-radius: 25px;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+}

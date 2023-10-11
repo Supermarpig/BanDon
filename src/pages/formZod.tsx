@@ -4,7 +4,8 @@ import * as z from "zod";
 
 const schema = z.object({
     email: z.string().email().min(2),
-    password: z.string().min(6)
+    password: z.string().min(6),
+    id: z.string().length(5, { message: "只少要5個字" }),
 });
 
 export default function RhfFormWithZod() {
@@ -23,23 +24,24 @@ export default function RhfFormWithZod() {
             method: "POST",
             body: JSON.stringify(data)
         });
+        console.log(data, '-------------------')
 
         reset();
     };
 
+    console.log(errors,"654654654as6d54f")
     return (
         <form
             onSubmit={handleSubmit(processForm)}
-            style={{ display: "flex", flexDirection: "column", width: 500 }}
+            className="flex flex-col"
         >
             <h1 className="text-3xl mb-5">react-hook-form & Zod測試</h1>
             <div className="mb-5">
-                <label htmlFor="username" className="form-label inline-flex w-48">使用者名稱</label>
+                <label htmlFor="username" className="form-label inline-flex w-48">Email</label>
                 <input
                     {...register("email", { required: true })}
                     name="email"
                     type="email"
-                    className="border border-solid border-black rounded-2xl w-full"
                 />
                 {errors.email?.message && <span className="text-red-500">{`${errors.email?.message}`}</span>}
             </div>
@@ -49,9 +51,18 @@ export default function RhfFormWithZod() {
                     {...register("password", { required: true, minLength: 6 })}
                     name="password"
                     type="password"
-                    className="border border-solid border-black rounded-2xl w-full"
                 />
                 {errors.password?.message && <span className="text-red-500">{`${errors.password?.message}`}</span>}
+            </div>
+            <div className="mb-5">
+                <label htmlFor="id" className="form-label inline-flex w-48">ID</label>
+                <input
+                    {...register("id", { required: true })}
+                    name="id"
+                    type="text"
+                />
+                { errors.id?.message && 'required' && <span className="text-red-500">{`${errors.id?.message}`}</span>}
+                
             </div>
 
             <button

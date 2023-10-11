@@ -56,6 +56,10 @@ const items: MenuProps[] = [
                 key: '/test/formZod',
             },
             {
+                label: 'formZod2',
+                key: '/test/formZod2',
+            },
+            {
                 label: '傳訊息通知測試',
                 key: '/test/sentToLineNotify',
             },

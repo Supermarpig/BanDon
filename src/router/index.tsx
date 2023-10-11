@@ -9,6 +9,7 @@ const Page302 = lazy(() => import('../pages/page302'))
 const Page303 = lazy(() => import('../pages/page303'))
 const Form = lazy(() => import('../pages/form'))
 const FormZod = lazy(() => import('../pages/formZod'))
+const FormZod2 = lazy(() => import('../pages/formZod2'))
 const TestPage = lazy(() => import('../pages/test'))
 const SentToLineNotify = lazy(() => import('../pages/sentToLineNotify'))
 
@@ -68,6 +69,10 @@ const routes = [
             {
                 path: "/test/formZod",
                 element: withLoadingComponent(<FormZod />)
+            },
+            {
+                path: "/test/FormZod2",
+                element: withLoadingComponent(<FormZod2 />)
             },
             {
                 path: "/test/sentToLineNotify",
