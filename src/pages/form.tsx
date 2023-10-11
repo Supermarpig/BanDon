@@ -100,7 +100,7 @@ export default function page() {
                             value="薯條"
                             {...register("like", { required: true })}
                         />
-                        <label htmlFor="checkList1" className="form-check-label">
+                        <label htmlFor="checkList1" className={`form-check-label relative bottom-6 ${errors.like && "text-red-500"}`}>
                             薯條
                         </label>
                     </div>
@@ -112,7 +112,7 @@ export default function page() {
                             value="漢堡"
                             {...register("like", { required: true })}
                         />
-                        <label htmlFor="checkList2" className="form-check-label">
+                        <label htmlFor="checkList2" className={`form-check-label relative bottom-6 ${errors.like && "text-red-500"}`}>
                             漢堡
                         </label>
                     </div>
@@ -126,7 +126,7 @@ export default function page() {
                             `}
                             value="牛排"
                         />
-                        <label htmlFor="checkList3" className={`form-check-label ${errors.like && "text-red-500"}`}>
+                        <label htmlFor="checkList3" className={`form-check-label relative bottom-6 ${errors.like && "text-red-500"}`}>
                             牛排
                         </label>
                     </div>
