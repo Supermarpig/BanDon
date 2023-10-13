@@ -52,7 +52,7 @@ function LineNotifyButton() {
     return (
         <div className="flex-col flex ">
 
-            <button onClick={getAccessToken} className='mb-5 border border-black border-solid rounded-3xl'>获取 Access Token</button>
+            <button onClick={getAccessToken} className='mb-5 border border-black border-solid rounded-3xl'>獲取 Access Token</button>
             {accessTokenState && <p>Access Token: {accessTokenState}</p>}
             <input
                 type="text"

@@ -13,7 +13,7 @@ export interface MenuChild {
 }
 const items: MenuProps[] = [
     {
-        label: '員工',
+        label: '香蕉',
         key: '/Page1',
         icon: '',
     },
@@ -92,7 +92,11 @@ const Menu = (props: MenuProps) => {
 
     for (let i = 0; i < items.length; i++) {
         //判斷找到找不到
-        if (items[i]!['children'] && items[i]!['children'].length > 0 && items[i]!['children'].find(findKey)) {
+        if (
+            items[i]!['children'] && 
+            items[i]!['children'].length > 0 && 
+            items[i]!['children'].find(findKey)
+            ) {
             firstOpenKeys = items[i]!.key as string;
             break
         }
