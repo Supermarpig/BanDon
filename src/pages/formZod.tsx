@@ -37,7 +37,7 @@ export default function RhfFormWithZod() {
         >
             <h1 className="text-3xl mb-5">react-hook-form & Zod測試</h1>
             <div className="mb-5">
-                <label htmlFor="username" className="form-label inline-flex w-48">Email</label>
+                <label htmlFor="email" className="form-label inline-flex w-48">Email</label>
                 <input
                     {...register("email", { required: true })}
                     name="email"

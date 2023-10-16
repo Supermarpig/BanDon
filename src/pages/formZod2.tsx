@@ -1,6 +1,8 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
+import { useState, useEffect } from 'react'
+import InputForm from '@components/InputForm'
 
 /**
 * 複雜一點點的情境
@@ -20,6 +22,33 @@ const registerRequestSchema = z.object({
     name: z.string().min(2, { message: "中文最少一個字，英文最少兩個字。" }).max(30, { message: "最多30個字" }),
     age: z.number().int({ message: "請輸入整數" }).positive({ message: "請輸入>0的數字" }).lt(100, { message: "請輸入小於100的數字" }).optional(),
     phone: z.string().regex(/^09[0-9]{8}$/, { message: "請輸入正確號碼" }).optional(),
+    like: z.array(z.string()).superRefine((val, ctx) => {
+        if (val.length > 3) {
+            ctx.addIssue({
+                code: z.ZodIssueCode.too_big,
+                maximum: 3,
+                type: "array",
+                inclusive: true,
+                message: "請不超過 3 項  😡😡😡",
+            });
+        }
+
+        if (val.length !== new Set(val).size) {
+            ctx.addIssue({
+                code: z.ZodIssueCode.custom,
+                message: `不允許重複選項`,
+            });
+        }
+        if (val.length === 0) {
+            ctx.addIssue({
+                code: z.ZodIssueCode.too_big,
+                maximum: 3,
+                type: "array",
+                inclusive: true,
+                message: "請至少選擇1 項  😡",
+            });
+        }
+    }),
 });
 
 /**
@@ -31,6 +60,7 @@ const LoginForm = () => {
     const {
         register,
         handleSubmit,
+        watch,
         formState: { errors },
     } = useForm<RegisterRequest>({
         resolver: zodResolver(registerRequestSchema),
@@ -42,33 +72,119 @@ const LoginForm = () => {
             method: "POST",
             body: JSON.stringify(registerData)
         });
-
+        alert('提交表單囉')
         console.log("trigger login action with:", registerData)
     };
 
 
-    // console.log(errors, "-------------------------------錯誤訊息")
+
+    // 處理有效年份 及日期
+    const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
+    const [years, setYears] = useState<number[]>([]);
+    useEffect(() => {
+        //從今年往後25年的選項
+        const generateYearOptions = () => {
+            const yearOptions = [];
+            for (let i = 0; i <= 25; i++) {
+                yearOptions.push(currentYear + i);
+            }
+            setYears(yearOptions);
+        };
+
+        generateYearOptions();
+    }, [currentYear]);
 
     return (
         <form onSubmit={handleSubmit(submit)} className="flex flex-col max-w-xs w-full ">
-            <p>email</p>
-            <input {...register('email')} />
-            {errors.email?.message && <p className="text-red-500">* {errors.email?.message}</p>}
-            <p>password</p>
-            <input type="password" {...register('password')} />
-            {errors.password?.message && <p className="text-red-500">* {errors.password?.message}</p>}
-            <p>name</p>
-            <input {...register('name')} />
-            {errors.name?.message && <p className="text-red-500">* {errors.name?.message}</p>}
-            <p>age</p>
-            <input type="number" max={100} {...register('age', { valueAsNumber: true,  required: false })} />
-            {errors.age?.message && <p className="text-red-500">* {errors.age?.message}</p>}
-            <p>phone</p>
-            <input {...register('phone')} />
-            {errors.phone?.message && <p className="text-red-500">* {errors.phone?.message}</p>}
+            <InputForm
+                label="這是Email"
+                name="email"
+                type="email"
+                register={register}
+                errors={errors}
+            />
+
+            <InputForm
+                label="password"
+                name="password"
+                type="password"
+                register={register}
+                errors={errors}
+            />
+
+            <InputForm
+                label="name"
+                name="name"
+                register={register}
+                errors={errors}
+            />
+            {/* 如果要修改register 內新增東西需要寫入一個function 如下↓ */}
+            <InputForm
+                label="Age"
+                name="age"
+                type="number"
+                defaultValue="0"
+                register={(name: any, options: any) => register(name, { ...options, valueAsNumber: true })}
+                errors={errors}
+            />
+            <InputForm
+                label="phone"
+                name="phone"
+                register={register}
+                errors={errors}
+            />
+
+            <span className="text-green-500 text-xl mt-5 rounded-3xl w-fit">請選擇喜歡的東西</span>
+            <div className="p-5">
+                <InputForm
+                    label="薯條"
+                    name="like"
+                    type="checkbox"
+                    value="薯條"
+                    register={register}
+                    errors={errors}
+                />
+
+                <InputForm
+                    label="漢堡"
+                    name="like"
+                    type="checkbox"
+                    value="漢堡"
+                    register={register}
+                    errors={errors}
+                />
+
+                <InputForm
+                    label="牛排"
+                    name="like"
+                    type="checkbox"
+                    value="牛排"
+                    register={register}
+                    errors={errors}
+                />
+                <InputForm
+                    label="豬排"
+                    name="like"
+                    type="checkbox"
+                    value="豬排"
+                    register={register}
+                    errors={errors}
+                />
+                <InputForm
+                    label="雞排"
+                    name="like"
+                    type="checkbox"
+                    value="雞排"
+                    register={register}
+                    errors={errors}
+                />
+                {errors.like?.message && <span className="text-red-500">{`${errors.like?.message}`}</span>}
+            </div>
+
+
+
 
             <input type="submit" className="rounded-xl  bg-green-300 " />
-
 
 
 

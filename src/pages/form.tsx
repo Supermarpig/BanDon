@@ -1,6 +1,7 @@
 //表單 react-hook-form  測試
 
-import { useForm, useWatch } from 'react-hook-form'
+import { useForm, useWatch, Controller } from 'react-hook-form'
+import { useState, useEffect } from 'react'
 
 
 export default function page() {
@@ -10,9 +11,30 @@ export default function page() {
         handleSubmit,
         control,
         formState: { errors },
+        watch
     } = useForm({
         mode: "onTouched",
     });//每當變更資料後就能立即判斷是否符合條件
+
+
+    // 監聽表單中 hasCreditCard 的值，並解構出來使用
+    const [paymentMethod] = watch(['paymentMethod']);
+
+    // 處理有效年份 及日期
+    const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
+    const [years, setYears] = useState<number[]>([]);
+    useEffect(() => {
+        //從今年往後25年的選項
+        const generateYearOptions = () => {
+            const yearOptions = [];
+            for (let i = 0; i <= 25; i++) {
+                yearOptions.push(currentYear + i);
+            }
+            setYears(yearOptions);
+        };
+
+        generateYearOptions();
+    }, [currentYear]);
 
     const onSubmit = (data: any) => {
         //可以寫postAPI 的東西
@@ -20,7 +42,8 @@ export default function page() {
     }
 
     const watchForm = useWatch({ control });
-    console.log(watchForm);
+    // console.log(watchForm);
+
     return (
         <>
             <h1 className="text-3xl mb-5">react-hook-form 測試</h1>
@@ -132,7 +155,76 @@ export default function page() {
                     </div>
                     {errors.like && <div className="text-red-500">* 請至少填入一項</div>}
                 </div>
-                <button type="submit" className="btn btn-primary border-black border border-solid rounded-3xl px-5">送出表單</button>
+                <div>
+                    <label>
+                        付款方式：
+                        <select {...register('paymentMethod')} className='border border-black border-solid'>
+                            <option value="cashOnDelivery">貨到付款</option>
+                            <option value="creditCard">信用卡</option>
+                        </select>
+                    </label>
+                    {paymentMethod === 'creditCard' &&
+                        <div className='flex item-center justify-start flex-wrap mt-5 '>
+                            <div className='flex flex-col mr-5'>
+                                <label htmlFor="creditCard">信用卡卡號</label>
+                                <input type="text"
+                                    id="cardNumber"
+                                    {...register("creditCard", { required: true })}
+                                    className='w-full'
+                                />
+                            </div>
+                            <div className='flex flex-col'>
+                                <label htmlFor="safeNumber">安全碼</label>
+                                <input type="text"
+                                    id="safeNumber"
+                                    {...register("safeNumber", { required: true })}
+                                    className='w-full'
+                                />
+                            </div>
+                            <div className='flex flex-col'>
+                                <label htmlFor="cardDate">有效期限</label>
+                                <div className='flex'>
+                                    <Controller
+                                        name="cardDateYear"
+                                        control={control}
+                                        rules={{ required: true }}
+                                        render={({ field }) => (
+                                            <select
+                                                {...field}
+                                            >
+                                                <option value="0">--</option>
+                                                {years.map((year) => (
+                                                    <option key={year} value={year}>
+                                                        {year}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                        )}
+                                    />
+                                    <Controller
+                                        name="cardDateMonth"
+                                        control={control}
+                                        rules={{ required: true }}
+                                        render={({ field }) => (
+                                            <select {...field}>
+                                                <option value="0">--</option>
+                                                {Array.from({ length: 12 }, (_, index) => (
+                                                    <option key={index + 1} value={index + 1}>
+                                                        {index + 1}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                        )}
+                                    />
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    {paymentMethod === 'cashOnDelivery' && <div>貨到付款支付細節……</div>}
+                </div>
+
+                <button type="submit" className="btn btn-primary border-black border border-solid rounded-3xl px-5 mt-2.5">送出表單</button>
             </form>
 
         </>
