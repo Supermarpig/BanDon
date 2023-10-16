@@ -25,7 +25,6 @@ export default function page() {
 
     return (
         <>
-
             <Swiper
                 className='w-full'
                 modules={[Navigation, Pagination, Scrollbar, Autoplay, EffectCoverflow]}
@@ -37,7 +36,6 @@ export default function page() {
                     // el: '.swiper-scrollbar',
                     draggable: false,
                     hide: true,
-                    
                 }}
                 onSwiper={(swiper) => console.log(swiper)}
                 // onSlideChange={() => console.log('slide change')}
@@ -48,7 +46,7 @@ export default function page() {
                     // reverseDirection: true  //反方向自動輪播
                     waitForTransition: true,  //平滑的滑動 要搭配 speed
                 }}
-            speed={1000}
+                speed={1000}
                 effect={'coverflow'}
             >
                 {bananaData && bananaData.map((item: any, index: any) => (
