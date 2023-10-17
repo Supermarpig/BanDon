@@ -18,7 +18,7 @@
     "reset-css": "^5.0.2",
     "swiper": "^10.2.0",
     "zod": "^3.22.2",
-    "@hookform/resolvers":"3.3.1"
+    "@hookform/resolvers": "3.3.1"
   },
   "devDependencies": {
     "@types/node": "^20.5.6",
