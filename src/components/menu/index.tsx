@@ -86,19 +86,20 @@ const Menu = (props: MenuProps) => {
 
 
     let firstOpenKeys: string = ""
-    function findKey(obj: { key: string }) {
-        return obj.key === currentRoute.pathname
-    }
+    // function findKey(obj: { key: string }) {
+    //     return obj.key === currentRoute.pathname;
+    // }
 
-    for (let i = 0; i < items.length; i++) {
-        //判斷找到找不到
+    for (const item of items) {
+        console.log(item.children,"=========")
         if (
-            items[i]!['children'] && 
-            items[i]!['children'].length > 0 && 
-            items[i]!['children'].find(findKey)
-            ) {
-            firstOpenKeys = items[i]!.key as string;
-            break
+            item.children &&
+            Array.isArray(item.children) &&
+            item.children.length > 0 
+            // item.children.some(child => findKey(child))
+        ) {
+            firstOpenKeys = item.key! as string;
+            break;
         }
     }
 

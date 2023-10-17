@@ -32,8 +32,6 @@ function BeforeRouterEnter() {
   const location = useLocation();
   let token = localStorage.getItem("React-management-token");
 
-  console.log(location.pathname, token)
-
   //對於後臺管理系統，兩中經典的跳轉情況
   //1.如果訪問的是登錄頁面，並且有token，跳轉至首頁
   if (location.pathname == "/login" && token) {

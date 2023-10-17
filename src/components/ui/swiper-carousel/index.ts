@@ -1,1 +1,0 @@
-export {default as Carousel, type Props as CarouselProps} from './carousel';
