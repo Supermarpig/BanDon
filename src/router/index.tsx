@@ -89,7 +89,7 @@ const routes = [
     //假設User隨便輸入不是裡面的網址  返回page1 ，專門去寫一個404頁面也可以
     {
         path: "*",
-        element: <Navigate to="/page1" />
+        element: <Navigate to="/404" />
     }
 ]
 

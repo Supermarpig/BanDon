@@ -3,6 +3,7 @@ import { ChangeEvent, useEffect, useState } from "react"
 import initLoginBg from './init'
 import { useNavigate } from "react-router-dom"
 import { Input } from '@components/ui/Input';
+import { LoginAPI } from "@/request/api";
 
 const Login = (prop: any) => {
     let navigateTo = useNavigate();
@@ -34,10 +35,11 @@ const Login = (prop: any) => {
             username: usernameVal,
             password: passwordVal,
             uuid: localStorage.getItem("uuid") as string,
+            code: ""
         })
 
         // console.log(loginAPIRes);
-        if (loginAPIRes.code === 200) {
+        if (loginAPIRes.code === 1) {
             //1.提示登錄成功
             alert("登錄成功")
             //2.保存token
@@ -60,12 +62,9 @@ const Login = (prop: any) => {
                 {/* 標題部分 */}
                 <div className='text-white mb-2.5'>
                     <h1 className="bold text-3xl text-center">DinBanDon</h1>
-                    {/* <p className=" text-center">Strive Everyday</p> */}
                 </div>
                 {/* 表單部分 */}
                 <div className="flex flex-col items-center justify-center p-10">
-                    {/* <input type="text" className="text-center rounded-lg mb-2.5" placeholder="帳號" onChange={usernameChange} />
-                    <input type="text" className="text-center rounded-lg mb-2.5" placeholder="密碼" onChange={passwordChange} /> */}
                     <Input
                         type="text"
                         placeholder={'帳號'}

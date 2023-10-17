@@ -76,12 +76,12 @@ const items: MenuProps[] = [
 
 const Menu = (props: MenuProps) => {
 
-    const navigateTO = useNavigate();
+    const navigateTo = useNavigate();
     const currentRoute = useLocation();
 
     const menuClick = (e: { key: any }) => {
 
-        navigateTO(e.key);
+        navigateTo(e.key);
     }
 
 
@@ -112,6 +112,11 @@ const Menu = (props: MenuProps) => {
 
     const menuPCstyle='md:flex-col p-5'
 
+    const Logout = () => {
+        localStorage.removeItem('React-management-token');
+        navigateTo("/login");
+    }
+
     return (
         <div>
             <div className={`flex justify-center flex-wrap ${menuPCstyle}`}>
@@ -120,11 +125,18 @@ const Menu = (props: MenuProps) => {
                         key={item.key}
                     >
                         <li className='group'>
-                            <button className={`${styleButton}  flex flex-col hover:bg-blue-300`}
-                                onClick={() => menuClick({ key: item.key })}
-                            >
-                                {item.label}{item.icon}
-                            </button>
+                            {item.key === '/Login' ? (
+                                <button className={`${styleButton}  flex flex-col hover:bg-blue-300`} onClick={Logout}>
+                                    {item.label}{item.icon}
+                                </button>
+                            ) : (
+                                <button
+                                    className={`${styleButton}  flex flex-col hover:bg-blue-300`}
+                                    onClick={() => menuClick({ key: item.key })}
+                                >
+                                    {item.label}{item.icon}
+                                </button>
+                            )}
                             {item.children && item.children.map((itemData: any, index: number) => {
                                 return (
                                     <button
