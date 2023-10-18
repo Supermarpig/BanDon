@@ -1,18 +1,15 @@
 //員工管理頁面：管理員可以查看、新增、修改和刪除員工資料。
 import React, { useState, useEffect } from 'react'
 import fetchAPI from '@utils/fetchAPI'
-// import { BananaSwiper } from '@components/ui/bananaSwiper'
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, Scrollbar, Autoplay, EffectCoverflow } from 'swiper/modules';
+import { Navigation, Pagination, Scrollbar, Autoplay, EffectCoverflow } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import 'swiper/css/scrollbar';
-
+// import 'swiper/css/scrollbar';
 
 interface SwiperProps {
     modules: any[];
-    // 其他屬性...
 }
 
 export default function page() {
@@ -38,11 +35,11 @@ export default function page() {
                 slidesPerView={3}
                 navigation
                 pagination={{ clickable: true }}
-                scrollbar={{
-                    // el: '.swiper-scrollbar',
-                    draggable: false,
-                    hide: true,
-                }}
+                // scrollbar={{
+                //     // el: '.swiper-scrollbar',
+                //     draggable: false,
+                //     hide: true,
+                // }}
                 onSwiper={(swiper) => console.log(swiper)}
                 // onSlideChange={() => console.log('slide change')}
                 autoplay={{

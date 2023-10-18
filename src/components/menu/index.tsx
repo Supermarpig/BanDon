@@ -91,7 +91,6 @@ const Menu = (props: MenuProps) => {
     // }
 
     for (const item of items) {
-        console.log(item.children,"=========")
         if (
             item.children &&
             Array.isArray(item.children) &&
