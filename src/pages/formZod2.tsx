@@ -1,8 +1,9 @@
-import { useForm, Controller } from "react-hook-form";
+import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { useState, useEffect } from 'react'
 import InputForm from '@components/InputForm'
+import CreditCardForm from '@pages/forms/creditCardForm'
+import AgeTestForm from '@pages/forms/ageTest'
 
 /**
 * 複雜一點點的情境
@@ -56,7 +57,10 @@ const registerRequestSchema = z.object({
         safeNumber: z.string(),
         cardDateYear: z.string(),
         cardDateMonth: z.string(),
-    })
+    }),
+
+    //年齡檢測
+    ageTest:z.string(),
 });
 
 /**
@@ -64,17 +68,15 @@ const registerRequestSchema = z.object({
  */
 type RegisterRequest = z.infer<typeof registerRequestSchema>
 
-const LoginForm = () => {
+const FormZod = () => {
+    const methods = useForm<RegisterRequest>({ resolver: zodResolver(registerRequestSchema) });
+
     const {
         register,
         handleSubmit,
-        watch,
-        control,
-        setValue ,
+        setValue,
         formState: { errors },
-    } = useForm<RegisterRequest>({
-        resolver: zodResolver(registerRequestSchema),
-    });
+    } = methods
 
     const submit = async (registerData: any): Promise<void> => {
         //得到資料後 傳給下面api
@@ -93,195 +95,111 @@ const LoginForm = () => {
         console.log("trigger login action with:", registerData)
     };
 
-    // 監聽表單中 hasCreditCard 的值，並解構出來使用
-    const [paymentMethod] = watch(['paymentMethod']);
-
-    // 處理有效年份 及日期
-    const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
-    const [years, setYears] = useState<number[]>([]);
-    useEffect(() => {
-        //從今年往後25年的選項
-        const generateYearOptions = () => {
-            const yearOptions = [];
-            for (let i = 0; i <= 25; i++) {
-                yearOptions.push(currentYear + i);
-            }
-            setYears(yearOptions);
-        };
-
-        generateYearOptions();
-    }, [currentYear]);
+    console.log(errors,"--------------------")
 
     return (
-        <form onSubmit={handleSubmit(submit)} className="flex flex-col max-w-xs w-full ">
-            <InputForm
-                label="這是Email"
-                name="email"
-                type="email"
-                register={register}
-                errors={errors}
-            />
-
-            <InputForm
-                label="password"
-                name="password"
-                type="password"
-                register={register}
-                errors={errors}
-            />
-
-            <InputForm
-                label="name"
-                name="name"
-                register={register}
-                errors={errors}
-            />
-            {/* 如果要修改register 內新增東西需要寫入一個function 如下↓ */}
-            <InputForm
-                label="Age"
-                name="age"
-                type="number"
-                defaultValue="0"
-                register={(name: any, options: any) => register(name, { ...options, valueAsNumber: true })}
-                errors={errors}
-            />
-            <InputForm
-                label="phone"
-                name="phone"
-                register={register}
-                errors={errors}
-            />
-
-            {/* checkbox例子 */}
-            <span className="text-green-500 text-xl mt-5 rounded-3xl w-fit">請選擇喜歡的東西</span>
-            <div className="p-5">
+        <FormProvider {...methods}>
+            <form onSubmit={handleSubmit(submit)} className="flex flex-col max-w-xs w-full ">
                 <InputForm
-                    label="薯條"
-                    name="like"
-                    type="checkbox"
-                    value="薯條"
+                    label="這是Email"
+                    name="email"
+                    type="email"
                     register={register}
                     errors={errors}
                 />
 
                 <InputForm
-                    label="漢堡"
-                    name="like"
-                    type="checkbox"
-                    value="漢堡"
+                    label="password"
+                    name="password"
+                    type="password"
                     register={register}
                     errors={errors}
                 />
 
                 <InputForm
-                    label="牛排"
-                    name="like"
-                    type="checkbox"
-                    value="牛排"
+                    label="name"
+                    name="name"
                     register={register}
+                    errors={errors}
+                />
+                {/* 如果要修改register 內新增東西需要寫入一個function 如下↓ */}
+                <InputForm
+                    label="Age"
+                    name="age"
+                    type="number"
+                    defaultValue="0"
+                    register={(name: any, options: any) => register(name, { ...options, valueAsNumber: true })}
                     errors={errors}
                 />
                 <InputForm
-                    label="豬排"
-                    name="like"
-                    type="checkbox"
-                    value="豬排"
+                    label="phone"
+                    name="phone"
                     register={register}
                     errors={errors}
                 />
-                <InputForm
-                    label="雞排"
-                    name="like"
-                    type="checkbox"
-                    value="雞排"
-                    register={register}
-                    errors={errors}
-                />
-                {errors.like?.message && <span className="text-red-500">{`${errors.like?.message}`}</span>}
-            </div>
 
-            <div className="my-5">
-                <label>
-                    付款方式：
-                    <select {...register('paymentMethod')} className='border border-black border-solid'>
-                        <option value="cashOnDelivery">貨到付款</option>
-                        <option value="creditCard">信用卡</option>
-                    </select>
-                </label>
-                {paymentMethod === 'creditCard' &&
-                    <div className='flex item-center justify-start flex-wrap mt-5 flex-col'>
-                        <div className='flex flex-col mr-5'>
-                            <label htmlFor="creditCard">信用卡卡號</label>
-                            <input type="text"
-                                id="cardNumber"
-                                {...register("credit.creditCard")}
-                                className='w-full'
-                                maxLength={12}
-                            />
-                        </div>
-                        <div className='flex flex-col'>
-                            <label htmlFor="safeNumber">安全碼</label>
-                            <input type="text"
-                                id="safeNumber"
-                                {...register("credit.safeNumber",)}
-                                className='w-full'
-                                maxLength={3}
-                            />
-                        </div>
-                        <div className='flex flex-col'>
-                            <label htmlFor="cardDate">有效期限</label>
-                            <div className='flex'>
-                                <Controller
-                                    name="credit.cardDateYear"
-                                    control={control}
-                                    rules={{ required: true }}
-                                    render={({ field }) => (
-                                        <select
-                                            {...field}
-                                        >
-                                            <option value="0">--</option>
-                                            {years.map((year) => (
-                                                <option key={year} value={year}>
-                                                    {year}
-                                                </option>
-                                            ))}
-                                        </select>
-                                    )}
-                                />
-                                <Controller
-                                    name="credit.cardDateMonth"
-                                    control={control}
-                                    rules={{ required: true }}
-                                    render={({ field }) => (
-                                        <select {...field}>
-                                            <option value="0">--</option>
-                                            {Array.from({ length: 12 }, (_, index) => (
-                                                <option key={index + 1} value={index + 1}>
-                                                    {index + 1}
-                                                </option>
-                                            ))}
-                                        </select>
-                                    )}
-                                />
+                {/* checkbox例子 */}
+                <span className="text-green-500 text-xl mt-5 rounded-3xl w-fit">請選擇喜歡的東西</span>
+                <div className="p-5">
+                    <InputForm
+                        label="薯條"
+                        name="like"
+                        type="checkbox"
+                        value="薯條"
+                        register={register}
+                        errors={errors}
+                    />
 
-                            </div>
-                        </div>
-                    </div>
-                }
-                {paymentMethod === 'cashOnDelivery' &&
-                    <div>貨到付款支付細節……</div>
-                }
-            </div>
+                    <InputForm
+                        label="漢堡"
+                        name="like"
+                        type="checkbox"
+                        value="漢堡"
+                        register={register}
+                        errors={errors}
+                    />
+
+                    <InputForm
+                        label="牛排"
+                        name="like"
+                        type="checkbox"
+                        value="牛排"
+                        register={register}
+                        errors={errors}
+                    />
+                    <InputForm
+                        label="豬排"
+                        name="like"
+                        type="checkbox"
+                        value="豬排"
+                        register={register}
+                        errors={errors}
+                    />
+                    <InputForm
+                        label="雞排"
+                        name="like"
+                        type="checkbox"
+                        value="雞排"
+                        register={register}
+                        errors={errors}
+                    />
+                    {errors.like?.message && <span className="text-red-500">{`${errors.like?.message}`}</span>}
+                </div>
+
+                <CreditCardForm />
+
+                <div className="p-5 flex flex-col">
+                    <AgeTestForm />
+                </div>
+
+                <input type="submit" className="rounded-xl  bg-green-300 " />
 
 
 
-            <input type="submit" className="rounded-xl  bg-green-300 " />
-
-
-
-        </form>
+            </form>
+        </FormProvider>
     );
 };
 
-export default LoginForm
+export default FormZod
 

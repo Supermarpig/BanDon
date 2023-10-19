@@ -49,7 +49,7 @@ export default function page() {
                     // reverseDirection: true  //反方向自動輪播
                     waitForTransition: true,  //平滑的滑動 要搭配 speed
                 }}
-                speed={1000}
+                speed={500}
                 effect={'coverflow'}
             >
                 {bananaData && bananaData.map((item: any, index: any) => (

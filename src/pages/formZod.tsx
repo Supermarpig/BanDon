@@ -5,7 +5,7 @@ import * as z from "zod";
 const schema = z.object({
     email: z.string().email().min(2),
     password: z.string().min(6),
-    id: z.string().length(5, { message: "只少要5個字" }),
+    id: z.string().length(5, { message: "只能5個字" }),
 });
 
 export default function RhfFormWithZod() {
@@ -29,7 +29,6 @@ export default function RhfFormWithZod() {
         reset();
     };
 
-    console.log(errors,"654654654as6d54f")
     return (
         <form
             onSubmit={handleSubmit(processForm)}
