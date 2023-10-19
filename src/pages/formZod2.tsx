@@ -57,7 +57,7 @@ const registerRequestSchema = z.object({
         safeNumber: z.string(),
         cardDateYear: z.string(),
         cardDateMonth: z.string(),
-    }),
+    }).nullable(),
 
     //年齡檢測
     ageTest:z.string(),
@@ -90,6 +90,7 @@ const FormZod = () => {
         setValue("credit.safeNumber", registerData.safeNumber);
         setValue("credit.cardDateYear", registerData.cardDateYear);
         setValue("credit.cardDateMonth", registerData.cardDateMonth);
+        
 
         alert('提交表單囉')
         console.log("trigger login action with:", registerData)

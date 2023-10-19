@@ -7,6 +7,7 @@ const Page3 = lazy(() => import('../pages/page3'))
 const Page301 = lazy(() => import('../pages/page301'))
 const Page302 = lazy(() => import('../pages/page302'))
 const Page303 = lazy(() => import('../pages/page303'))
+const Banana = lazy(() => import('../pages/banana'))
 const Form = lazy(() => import('../pages/form'))
 const FormZod = lazy(() => import('../pages/formZod'))
 const FormZod2 = lazy(() => import('../pages/formZod2'))
@@ -34,6 +35,10 @@ const routes = [
         path: "/",
         element: <Home />,
         children: [
+            {
+                path: "/banana",
+                element: withLoadingComponent(<Banana />)
+            },
             {
                 path: "/page1",
                 element: withLoadingComponent(<Page1 />)

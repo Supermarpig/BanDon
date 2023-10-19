@@ -3,9 +3,9 @@ import { useState, useEffect } from 'react'
 
 const CreditCardForm = () => {
 
-    const { register, watch, control, formState: { errors } } = useFormContext();
+    const { register, watch, control, formState: { errors }, clearErrors } = useFormContext();
 
-    // 監聽表單中 hasCreditCard 的值，並解構出來使用
+    // 監聽表單中 hasCreditCard 的值，並拿出來使用
     const [paymentMethod] = watch(['paymentMethod']);
 
     // 處理有效年份 及日期
@@ -24,6 +24,8 @@ const CreditCardForm = () => {
         generateYearOptions();
     }, [currentYear]);
 
+
+
     return (
         <div className="my-5">
             <label>
@@ -35,11 +37,12 @@ const CreditCardForm = () => {
             </label>
             {paymentMethod === 'creditCard' &&
                 <div className='flex item-center justify-start flex-wrap mt-5 flex-col'>
+
                     <div className='flex flex-col mr-5'>
                         <label htmlFor="creditCard" className={`${errors['credit.creditCard'] && " text-red-500"}`}>信用卡卡號</label>
                         <input type="text"
                             id="cardNumber"
-                            {...register("credit.creditCard")}
+                            {...register("credit.creditCard", { required: paymentMethod === 'creditCard' })}
                             className='w-full'
                             maxLength={12}
                         />
@@ -48,7 +51,7 @@ const CreditCardForm = () => {
                         <label htmlFor="safeNumber" className={`${errors['credit.safeNumber'] && " text-red-500"}`}>安全碼</label>
                         <input type="text"
                             id="safeNumber"
-                            {...register("credit.safeNumber", { required: true })}
+                            {...register("credit.safeNumber", { required: paymentMethod === 'creditCard' })}
                             className='w-full'
                             maxLength={3}
                         />
@@ -59,7 +62,7 @@ const CreditCardForm = () => {
                             <Controller
                                 name="credit.cardDateYear"
                                 control={control}
-                                rules={{ required: false }}
+                                rules={{ required: paymentMethod === 'creditCard' }}
                                 render={({ field }) => (
                                     <select {...field}>
                                         <option value="0">--</option>
@@ -74,7 +77,7 @@ const CreditCardForm = () => {
                             <Controller
                                 name="credit.cardDateMonth"
                                 control={control}
-                                rules={{ required: false }}
+                                rules={{ required: paymentMethod === 'creditCard' }}
                                 render={({ field }) => (
                                     <select {...field}>
                                         <option value="0">--</option>

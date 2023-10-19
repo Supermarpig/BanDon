@@ -14,30 +14,25 @@ export interface MenuChild {
 const items: MenuProps[] = [
     {
         label: '香蕉',
-        key: '/Page1',
+        key: '/banana',
         icon: '',
     },
     {
-        label: '菜單',
-        key: '/Page2',
-        icon: '',
-    },
-    {
-        label: '訂單表',
-        key: 'page3',
+        label: '訂單測試',
+        key: 'page1',
         icon: '',
         children: [
             {
-                label: 'page 301',
-                key: '/page3/page301',
+                label: '員工',
+                key: '/page1',
             },
             {
-                label: 'page 302',
-                key: '/page3/page302',
+                label: '菜單',
+                key: '/page2',
             },
             {
-                label: 'page 303',
-                key: '/page3/page303',
+                label: '訂單表',
+                key: '/page3',
             },
 
         ]
