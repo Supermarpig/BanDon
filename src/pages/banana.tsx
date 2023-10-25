@@ -1,4 +1,4 @@
-//員工管理頁面：管理員可以查看、新增、修改和刪除員工資料。
+//banana展示
 import React, { useState, useEffect } from 'react'
 import fetchAPI from '@utils/fetchAPI'
 import { Swiper, SwiperSlide } from 'swiper/react';

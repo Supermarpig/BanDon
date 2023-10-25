@@ -8,10 +8,11 @@ const Page301 = lazy(() => import('../pages/page301'))
 const Page302 = lazy(() => import('../pages/page302'))
 const Page303 = lazy(() => import('../pages/page303'))
 const Banana = lazy(() => import('../pages/banana'))
-const Form = lazy(() => import('../pages/form'))
-const FormZod = lazy(() => import('../pages/formZod'))
-const FormZod2 = lazy(() => import('../pages/formZod2'))
-const TestPage = lazy(() => import('../pages/test'))
+const Form = lazy(() => import('../pages/test/form'))
+const FormZod = lazy(() => import('../pages/test/formZod'))
+const FormZod2 = lazy(() => import('../pages/test/formZod2'))
+const TestPage = lazy(() => import('../pages/test/test'))
+const FetchTest = lazy(() => import('../pages/test/fetchTest'))
 const SentToLineNotify = lazy(() => import('../pages/sentToLineNotify'))
 
 //Navigate重定向組件
@@ -82,6 +83,10 @@ const routes = [
             {
                 path: "/test/sentToLineNotify",
                 element: withLoadingComponent(<SentToLineNotify />)
+            },
+            {
+                path: "/test/fetchTest",
+                element: withLoadingComponent(<FetchTest />)
             },
 
         ]

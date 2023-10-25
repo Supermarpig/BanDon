@@ -58,6 +58,10 @@ const items: MenuProps[] = [
                 label: '傳訊息通知測試',
                 key: '/test/sentToLineNotify',
             },
+            {
+                label: 'fetchTest',
+                key: '/test/fetchTest',
+            },
 
         ]
     },
